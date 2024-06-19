@@ -1,5 +1,3 @@
-
-
 import {
   collection,
   getDocs,
@@ -14,7 +12,7 @@ import { Product } from "./Product";
 export default async function Products() {
   const db = getFirestore(app);
   const q = query(collection(db, "products"), orderBy("timestamp", "desc"));
-  const querySnapshot = await getDocs(q);
+  const querySnapshot = await getDocs(q, { source: 'server' }); // This forces the query to fetch data from the server
   let data = [];
   querySnapshot.forEach((doc) => {
     data.push({ id: doc.id, ...doc.data() });
